@@ -1,0 +1,7 @@
+{
+  "name": "ATHŸRE Activewear",
+  "description": "A high-end, modern activewear e-commerce platform featuring the Rise Collection, lifestyle journal, and an AI-powered styling assistant.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
