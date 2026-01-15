@@ -1,14 +1,15 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background Image/Video Placeholder */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920" 
-          alt="Athlete training" 
+        <img
+          src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920"
+          alt="Athlete training"
           className="w-full h-full object-cover opacity-60 scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
@@ -22,19 +23,13 @@ const Hero: React.FC = () => {
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 animate-fade-in opacity-0" style={{ animationDelay: '0.4s' }}>
           MOVE WITH<br />PURPOSE
         </h1>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in opacity-0" style={{ animationDelay: '0.6s' }}>
-          <a 
-            href="#collection" 
-            className="w-full sm:w-auto bg-white text-black px-10 py-4 font-bold text-sm uppercase tracking-widest hover:bg-gray-200 transition-all shadow-xl"
+        <div className="animate-fade-in opacity-0" style={{ animationDelay: '0.6s' }}>
+          <Link
+            to="/collection/rise"
+            className="inline-block bg-white text-black px-12 py-4 font-bold text-sm uppercase tracking-widest hover:bg-gray-200 transition-all shadow-xl"
           >
-            Shop Women
-          </a>
-          <a 
-            href="#collection" 
-            className="w-full sm:w-auto border-2 border-white text-white px-10 py-4 font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all shadow-xl"
-          >
-            Shop Men
-          </a>
+            Shop The Collection
+          </Link>
         </div>
       </div>
 
