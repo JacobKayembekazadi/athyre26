@@ -11,6 +11,11 @@
 
   assign featured_image = product.featured_image
   assign second_image = product.images[1]
+
+  assign is_new = false
+  if product.tags contains 'new'
+    assign is_new = true
+  endif
 -%}
 
 <div class="product-card" data-product-card data-product-id="{{ product.id }}">
@@ -46,7 +51,7 @@
       {%- comment -%} Badges {%- endcomment -%}
       {%- if product.available == false -%}
         <span class="product-card__badge product-card__badge--sold-out">{{ 'products.sold_out' | t }}</span>
-      {%- elsif product.tags contains 'new' or product.created_at > 'now' | date: '%s' | minus: 2592000 | date: '%Y-%m-%d' -%}
+      {%- elsif is_new -%}
         <span class="product-card__badge product-card__badge--new">{{ 'products.new' | t }}</span>
       {%- endif -%}
 
