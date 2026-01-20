@@ -4,8 +4,8 @@
     "theme_name": "ATHYRE Theme",
     "theme_version": "1.0.0",
     "theme_author": "ATHYRE",
-    "theme_documentation_url": "https://athyre.com",
-    "theme_support_url": "https://athyre.com/support"
+    "theme_documentation_url": "https://athyre.com/support",
+    "theme_support_email": "support@athyre.com"
   },
   {
     "name": "Logo",

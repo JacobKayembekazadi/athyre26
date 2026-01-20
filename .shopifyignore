@@ -6,6 +6,15 @@ TODO.md
 README.md
 .shopifyignore
 
+# Non-theme folders
+react-source/
+shopify-theme-converter/
+shopify-theme-converter.skill
+.claude/
+.specstory/
+.cursorrules
+.cursorindexingignore
+
 # Development files
 .git
 .gitignore
