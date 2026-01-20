@@ -1,0 +1,21 @@
+# Documentation files - don't upload to Shopify
+CLAUDE.md
+ARCHITECTURE.md
+UPDATES.md
+TODO.md
+README.md
+.shopifyignore
+
+# Development files
+.git
+.gitignore
+node_modules
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode
+.idea
+*.swp
+*.swo

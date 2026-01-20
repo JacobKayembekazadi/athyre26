@@ -1,0 +1,93 @@
+# Cursor Rules for ATHŸRE Project
+
+## Project Type
+Shopify 2.0 Theme (converted from React)
+
+## Primary Working Directory
+`athyre-theme/` - All active development
+
+## Language & Framework
+- Liquid (Shopify templating)
+- Vanilla JavaScript (no frameworks)
+- CSS (custom utilities, no Tailwind in production)
+
+## Code Style
+
+### Liquid
+- Use `{%- -%}` for whitespace control
+- Comment with `{%- comment -%}`
+- Use `| t` filter for all user-facing strings
+- Prefer `{% render %}` over `{% include %}`
+
+### CSS
+- BEM naming: `.block__element--modifier`
+- Section scoping: `.section-{{ section.id }}`
+- Mobile-first media queries
+- No !important unless absolutely necessary
+
+### JavaScript
+- Vanilla JS only, no jQuery
+- Use `data-*` attributes for DOM selection
+- Dispatch custom events for state changes
+- Always handle loading/error states
+
+## File Patterns
+
+### New Section
+```liquid
+<section class="section-name section-{{ section.id }}">
+  <div class="container">
+    {%- comment -%} Content {%- endcomment -%}
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} { }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Section Name",
+  "settings": []
+}
+{% endschema %}
+```
+
+### New Snippet
+```liquid
+{%- comment -%}
+  Snippet: snippet-name
+  Usage: {% render 'snippet-name', param: value %}
+{%- endcomment -%}
+
+<div class="snippet-name">
+  {{ param }}
+</div>
+```
+
+## Key Files
+- `layout/theme.liquid` - Main wrapper
+- `assets/base.css` - All styles
+- `assets/theme.js` - All JavaScript
+- `locales/en.default.json` - Translations
+- `config/settings_schema.json` - Theme settings
+
+## Don't
+- Don't use React/Vue/Angular
+- Don't add npm dependencies to theme
+- Don't use Tailwind classes (use custom utilities)
+- Don't hardcode text (use translations)
+- Don't forget section schemas
+
+## Do
+- Use Shopify AJAX API for cart
+- Add translations for new strings
+- Update UPDATES.md for changes
+- Test on mobile
+- Check with `shopify theme check`
+
+## Documentation
+- CLAUDE.md - AI context
+- ARCHITECTURE.md - System design
+- UPDATES.md - Changelog
+- TODO.md - Tasks
