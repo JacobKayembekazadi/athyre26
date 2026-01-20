@@ -6,7 +6,7 @@
         "heading": "MOVE WITH PURPOSE",
         "subheading": "Premium activewear engineered for those who demand more from their movement.",
         "button_text": "Shop Collection",
-        "button_link": "shopify:///collections/all",
+        "button_link": "/collections/all",
         "show_scroll_indicator": true,
         "overlay_opacity": 40,
         "text_alignment": "center",
