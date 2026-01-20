@@ -7,10 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# React source
+react-source/node_modules
+react-source/dist
+react-source/dist-ssr
 *.local
+
+# Shopify
+.shopify
 
 # Editor directories and files
 .vscode/*
