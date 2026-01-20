@@ -1,0 +1,105 @@
+<section class="list-collections section-{{ section.id }}">
+  <div class="container">
+    <h1 class="list-collections__title">{{ 'collections.title' | t }}</h1>
+
+    <div class="list-collections__grid">
+      {%- for collection in collections -%}
+        <a href="{{ collection.url }}" class="list-collections__item">
+          <div class="list-collections__image">
+            {%- if collection.image -%}
+              <img src="{{ collection.image | image_url: width: 600 }}" alt="{{ collection.title | escape }}">
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <h2 class="list-collections__item-title">{{ collection.title }}</h2>
+          <p class="list-collections__item-count">{{ collection.all_products_count }} {{ 'collections.items_count' | t: count: collection.all_products_count }}</p>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 3rem 0 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: 4rem 0 6rem;
+    }
+  }
+
+  .list-collections__title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin: 0 0 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .list-collections__title {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .list-collections__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .list-collections__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .list-collections__item {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .list-collections__image {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #f3f4f6;
+    margin-bottom: 1rem;
+  }
+
+  .list-collections__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+
+  .list-collections__item:hover .list-collections__image img {
+    transform: scale(1.05);
+  }
+
+  .list-collections__item-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+  }
+
+  .list-collections__item-count {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Collections list",
+  "tag": "section",
+  "class": "list-collections-section",
+  "settings": [],
+  "templates": ["list-collections"]
+}
+{% endschema %}

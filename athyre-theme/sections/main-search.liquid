@@ -1,0 +1,161 @@
+<section class="search-page section-{{ section.id }}">
+  <div class="container">
+    <h1 class="search-page__title">{{ 'general.search.title' | t }}</h1>
+
+    <form action="{{ routes.search_url }}" method="get" class="search-page__form">
+      <input type="hidden" name="type" value="product,article,page">
+      <div class="search-page__input-wrapper">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          class="search-page__input"
+          autofocus
+        >
+        <button type="submit" class="search-page__submit">
+          {% render 'icon', icon: 'search', size: 20 %}
+        </button>
+      </div>
+    </form>
+
+    {%- if search.performed -%}
+      <p class="search-page__results-count">
+        {{ 'general.search.results_count' | t: count: search.results_count, terms: search.terms }}
+      </p>
+
+      {%- if search.results_count > 0 -%}
+        <div class="search-page__results">
+          {%- for item in search.results -%}
+            <div class="search-page__result">
+              {%- case item.object_type -%}
+                {%- when 'product' -%}
+                  {% render 'product-card', product: item %}
+                {%- when 'article' -%}
+                  {% render 'article-card', article: item %}
+                {%- when 'page' -%}
+                  <a href="{{ item.url }}" class="search-page__page-result">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.content | strip_html | truncate: 150 }}</p>
+                  </a>
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if search.results_count > search.results.size -%}
+          {% render 'pagination', paginate: paginate %}
+        {%- endif -%}
+      {%- else -%}
+        <p class="search-page__no-results">{{ 'general.search.no_results' | t }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 3rem 0 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: 4rem 0 6rem;
+    }
+  }
+
+  .search-page__title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin: 0 0 2rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .search-page__title {
+      font-size: 3rem;
+    }
+  }
+
+  .search-page__form {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .search-page__input-wrapper {
+    display: flex;
+    border: 2px solid #000;
+  }
+
+  .search-page__input {
+    flex: 1;
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+  }
+
+  .search-page__submit {
+    padding: 1rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .search-page__results-count {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+
+  .search-page__results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .search-page__results {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .search-page__no-results {
+    text-align: center;
+    color: #6b7280;
+    padding: 4rem;
+  }
+
+  .search-page__page-result {
+    padding: 1.5rem;
+    background: #f9fafb;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .search-page__page-result h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+
+  .search-page__page-result p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Search results",
+  "tag": "section",
+  "class": "search-section",
+  "settings": [],
+  "templates": ["search"]
+}
+{% endschema %}

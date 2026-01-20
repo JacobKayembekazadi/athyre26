@@ -1,0 +1,115 @@
+<section class="activate-page section-{{ section.id }}">
+  <div class="container">
+    <div class="activate-page__wrapper">
+      <h1 class="activate-page__title">{{ 'customer.activate_account.title' | t }}</h1>
+      <p class="activate-page__text">{{ 'customer.activate_account.subtext' | t }}</p>
+
+      {%- form 'activate_customer_password', class: 'activate-page__form' -%}
+        {%- if form.errors -%}
+          <div class="activate-page__errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <div class="activate-page__field">
+          <label for="password">{{ 'customer.activate_account.password' | t }}</label>
+          <input type="password" id="password" name="customer[password]" autocomplete="new-password" required>
+        </div>
+
+        <div class="activate-page__field">
+          <label for="password-confirm">{{ 'customer.activate_account.password_confirm' | t }}</label>
+          <input type="password" id="password-confirm" name="customer[password_confirmation]" autocomplete="new-password" required>
+        </div>
+
+        <button type="submit" class="activate-page__submit">{{ 'customer.activate_account.submit' | t }}</button>
+        <a href="{{ routes.account_login_url }}" class="activate-page__decline">{{ 'customer.activate_account.cancel' | t }}</a>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 4rem 0 6rem;
+  }
+
+  .activate-page__wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .activate-page__title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin: 0 0 1rem;
+  }
+
+  .activate-page__text {
+    color: #6b7280;
+    margin: 0 0 2rem;
+  }
+
+  .activate-page__errors {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .activate-page__field {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .activate-page__field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .activate-page__field input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  .activate-page__submit {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .activate-page__decline {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Activate account",
+  "tag": "section",
+  "class": "activate-section",
+  "settings": [],
+  "templates": ["customers/activate_account"]
+}
+{% endschema %}

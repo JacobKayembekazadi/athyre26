@@ -9,6 +9,20 @@
       "title": "Page not found",
       "subtext": "The page you're looking for doesn't exist or has been moved.",
       "button": "Back to home"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search products, articles...",
+      "results_count": "{{ count }} results for \"{{ terms }}\"",
+      "no_results": "No results found. Try a different search term."
+    },
+    "password_page": {
+      "title": "Password",
+      "opening_soon": "Opening Soon",
+      "spread_the_word": "Be the first to know when we launch.",
+      "password_placeholder": "Enter store password",
+      "enter": "Enter",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\">Log in here</a>"
     }
   },
   "header": {
@@ -95,5 +109,106 @@
     "open_menu": "Open menu",
     "loading": "Loading",
     "skip_to_product_info": "Skip to product information"
+  },
+  "customer": {
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "view_addresses": "View Addresses",
+      "return": "Return to Account"
+    },
+    "orders": {
+      "title": "Order History",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment",
+      "fulfillment_status": "Fulfillment",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date_html": "Placed on {{ date }}",
+      "cancelled_html": "Order cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Qty",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "fulfilled_at_html": "Fulfilled {{ date }}",
+      "billing_address": "Billing Address",
+      "shipping_address": "Shipping Address",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign In",
+      "forgot_password": "Forgot your password?",
+      "new_customer": "New customer?",
+      "create_account": "Create an account",
+      "cancel": "Cancel"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create Account",
+      "have_account": "Already have an account?",
+      "login": "Log in"
+    },
+    "recover_password": {
+      "title": "Reset Password",
+      "subtext": "We will send you an email to reset your password.",
+      "email": "Email",
+      "submit": "Submit",
+      "success": "We've sent you an email with a link to update your password."
+    },
+    "reset_password": {
+      "title": "Reset Password",
+      "subtext": "Enter your new password below.",
+      "password": "New Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Reset Password"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "addresses": {
+      "title": "Your Addresses",
+      "add_new": "Add New Address",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country",
+      "province": "Province/State",
+      "zip": "Postal/ZIP Code",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "add": "Add Address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you want to delete this address?",
+      "default": "Default"
+    },
+    "log_out": "Log out"
   }
 }

@@ -1,0 +1,191 @@
+<section class="login-page section-{{ section.id }}">
+  <div class="container">
+    <div class="login-page__wrapper">
+      <h1 class="login-page__title">{{ 'customer.login.title' | t }}</h1>
+
+      {%- form 'customer_login', class: 'login-page__form' -%}
+        {%- if form.errors -%}
+          <div class="login-page__errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <div class="login-page__field">
+          <label for="customer-email">{{ 'customer.login.email' | t }}</label>
+          <input type="email" id="customer-email" name="customer[email]" autocomplete="email" required>
+        </div>
+
+        <div class="login-page__field">
+          <label for="customer-password">{{ 'customer.login.password' | t }}</label>
+          <input type="password" id="customer-password" name="customer[password]" autocomplete="current-password" required>
+        </div>
+
+        <a href="#recover" class="login-page__forgot">{{ 'customer.login.forgot_password' | t }}</a>
+
+        <button type="submit" class="login-page__submit">{{ 'customer.login.sign_in' | t }}</button>
+
+        <p class="login-page__register">
+          {{ 'customer.login.new_customer' | t }}
+          <a href="{{ routes.account_register_url }}">{{ 'customer.login.create_account' | t }}</a>
+        </p>
+      {%- endform -%}
+
+      <div id="recover" class="login-page__recover">
+        <h2 class="login-page__subtitle">{{ 'customer.recover_password.title' | t }}</h2>
+        <p class="login-page__text">{{ 'customer.recover_password.subtext' | t }}</p>
+
+        {%- form 'recover_customer_password', class: 'login-page__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="login-page__success">{{ 'customer.recover_password.success' | t }}</p>
+          {%- endif -%}
+
+          <div class="login-page__field">
+            <label for="recover-email">{{ 'customer.recover_password.email' | t }}</label>
+            <input type="email" id="recover-email" name="email" autocomplete="email" required>
+          </div>
+
+          <button type="submit" class="login-page__submit">{{ 'customer.recover_password.submit' | t }}</button>
+
+          <a href="#login" class="login-page__back">{{ 'customer.login.cancel' | t }}</a>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 4rem 0 6rem;
+  }
+
+  .login-page__wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .login-page__title,
+  .login-page__subtitle {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin: 0 0 2rem;
+    text-align: center;
+  }
+
+  .login-page__subtitle {
+    font-size: 1.5rem;
+  }
+
+  .login-page__text {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+
+  .login-page__errors {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .login-page__success {
+    background: #f0fdf4;
+    color: #16a34a;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .login-page__field {
+    margin-bottom: 1rem;
+  }
+
+  .login-page__field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .login-page__field input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  .login-page__field input:focus {
+    outline: none;
+    border-color: #000;
+  }
+
+  .login-page__forgot {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+  }
+
+  .login-page__submit {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .login-page__submit:hover {
+    background: #1f2937;
+  }
+
+  .login-page__register {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .login-page__register a {
+    color: #000;
+    font-weight: 600;
+  }
+
+  .login-page__recover {
+    display: none;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .login-page__recover:target {
+    display: block;
+  }
+
+  .login-page__back {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Login",
+  "tag": "section",
+  "class": "login-section",
+  "settings": [],
+  "templates": ["customers/login"]
+}
+{% endschema %}

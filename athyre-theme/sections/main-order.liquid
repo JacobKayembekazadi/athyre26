@@ -1,0 +1,212 @@
+<section class="order-page section-{{ section.id }}">
+  <div class="container">
+    <a href="{{ routes.account_url }}" class="order-page__back">&larr; {{ 'customer.account.return' | t }}</a>
+
+    <h1 class="order-page__title">{{ 'customer.order.title' | t: name: order.name }}</h1>
+
+    <p class="order-page__date">{{ 'customer.order.date_html' | t: date: order.created_at | date: '%B %d, %Y' }}</p>
+
+    {%- if order.cancelled -%}
+      <div class="order-page__cancelled">
+        {{ 'customer.order.cancelled_html' | t: date: order.cancelled_at | date: '%B %d, %Y' }}
+        <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}</p>
+      </div>
+    {%- endif -%}
+
+    <table class="order-page__table">
+      <thead>
+        <tr>
+          <th>{{ 'customer.order.product' | t }}</th>
+          <th>{{ 'customer.order.sku' | t }}</th>
+          <th>{{ 'customer.order.price' | t }}</th>
+          <th>{{ 'customer.order.quantity' | t }}</th>
+          <th>{{ 'customer.order.total' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for line_item in order.line_items -%}
+          <tr>
+            <td>
+              <a href="{{ line_item.product.url }}">{{ line_item.title }}</a>
+              {%- if line_item.fulfillment -%}
+                <p class="order-page__fulfillment">
+                  {{ 'customer.order.fulfilled_at_html' | t: date: line_item.fulfillment.created_at | date: '%B %d, %Y' }}
+                  {%- if line_item.fulfillment.tracking_url -%}
+                    <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_number }}</a>
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </td>
+            <td>{{ line_item.sku }}</td>
+            <td>{{ line_item.final_price | money }}</td>
+            <td>{{ line_item.quantity }}</td>
+            <td>{{ line_item.final_line_price | money }}</td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">{{ 'customer.order.subtotal' | t }}</td>
+          <td>{{ order.line_items_subtotal_price | money }}</td>
+        </tr>
+        {%- for discount_application in order.cart_level_discount_applications -%}
+          <tr>
+            <td colspan="4">{{ 'customer.order.discount' | t }}: {{ discount_application.title }}</td>
+            <td>-{{ discount_application.total_allocated_amount | money }}</td>
+          </tr>
+        {%- endfor -%}
+        {%- for shipping_method in order.shipping_methods -%}
+          <tr>
+            <td colspan="4">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td>
+            <td>{{ shipping_method.price | money }}</td>
+          </tr>
+        {%- endfor -%}
+        {%- for tax_line in order.tax_lines -%}
+          <tr>
+            <td colspan="4">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</td>
+            <td>{{ tax_line.price | money }}</td>
+          </tr>
+        {%- endfor -%}
+        <tr class="order-page__total">
+          <td colspan="4">{{ 'customer.order.total' | t }}</td>
+          <td>{{ order.total_price | money }}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="order-page__info">
+      <div class="order-page__billing">
+        <h2>{{ 'customer.order.billing_address' | t }}</h2>
+        <p><strong>{{ 'customer.order.payment_status' | t }}:</strong> {{ order.financial_status_label }}</p>
+        <address>{{ order.billing_address | format_address }}</address>
+      </div>
+
+      <div class="order-page__shipping">
+        <h2>{{ 'customer.order.shipping_address' | t }}</h2>
+        <p><strong>{{ 'customer.order.fulfillment_status' | t }}:</strong> {{ order.fulfillment_status_label }}</p>
+        <address>{{ order.shipping_address | format_address }}</address>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 3rem 0 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: 4rem 0 6rem;
+    }
+  }
+
+  .order-page__back {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+  }
+
+  .order-page__title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin: 0 0 0.5rem;
+  }
+
+  .order-page__date {
+    color: #6b7280;
+    margin: 0 0 2rem;
+  }
+
+  .order-page__cancelled {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .order-page__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+  }
+
+  .order-page__table th,
+  .order-page__table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .order-page__table th {
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .order-page__table tfoot td {
+    border-bottom: none;
+  }
+
+  .order-page__table .order-page__total td {
+    font-weight: 700;
+    font-size: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #000;
+  }
+
+  .order-page__fulfillment {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0.5rem 0 0;
+  }
+
+  .order-page__info {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .order-page__info {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .order-page__billing h2,
+  .order-page__shipping h2 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 1rem;
+  }
+
+  .order-page__billing address,
+  .order-page__shipping address {
+    font-style: normal;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .order-page__billing p,
+  .order-page__shipping p {
+    font-size: 0.875rem;
+    margin: 0 0 1rem;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Order",
+  "tag": "section",
+  "class": "order-section",
+  "settings": [],
+  "templates": ["customers/order"]
+}
+{% endschema %}
