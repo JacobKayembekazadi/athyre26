@@ -1,0 +1,116 @@
+<section class="page section-{{ section.id }}">
+  <div class="container">
+    <header class="page__header">
+      <h1 class="page__title">{{ page.title }}</h1>
+    </header>
+
+    <div class="page__content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 3rem 0 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: 4rem 0 6rem;
+    }
+  }
+
+  .page__header {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .page__header {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .page__title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .page__title {
+      font-size: 3rem;
+    }
+  }
+
+  .page__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* RTE styles */
+  .page__content.rte {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .page__content.rte h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 2rem 0 1rem;
+    color: #000;
+  }
+
+  .page__content.rte h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.75rem;
+    color: #000;
+  }
+
+  .page__content.rte p {
+    margin: 0 0 1.5rem;
+  }
+
+  .page__content.rte a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .page__content.rte ul,
+  .page__content.rte ol {
+    margin: 0 0 1.5rem 1.5rem;
+  }
+
+  .page__content.rte li {
+    margin-bottom: 0.5rem;
+  }
+
+  .page__content.rte img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+
+  .page__content.rte blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    background: #f9fafb;
+    border-left: 4px solid #000;
+    font-style: italic;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Page content",
+  "tag": "section",
+  "class": "page-section",
+  "settings": [],
+  "templates": ["page"]
+}
+{% endschema %}

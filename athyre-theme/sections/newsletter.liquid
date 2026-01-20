@@ -1,0 +1,245 @@
+<section class="newsletter section-{{ section.id }}">
+  <div class="container">
+    <div class="newsletter__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="newsletter__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="newsletter__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- form 'customer', class: 'newsletter__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="newsletter__form-inner">
+          <input
+            type="email"
+            name="contact[email]"
+            placeholder="{{ section.settings.placeholder }}"
+            required
+            autocomplete="email"
+            class="newsletter__input"
+          >
+          <button type="submit" class="newsletter__button">
+            {{ section.settings.button_text }}
+          </button>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: {{ section.settings.padding_top_mobile }}px 1rem {{ section.settings.padding_bottom_mobile }}px;
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .section-{{ section.id }} .newsletter__content {
+    max-width: 48rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .newsletter__heading {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    font-style: italic;
+    margin: 0 0 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} .newsletter__heading {
+      font-size: 3.75rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .section-{{ section.id }} .newsletter__text {
+    color: {{ section.settings.text_color | color_modify: 'alpha', 0.6 }};
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0 0 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} .newsletter__text {
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .section-{{ section.id }} .newsletter__form-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-{{ section.id }} .newsletter__form-inner {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+
+  .section-{{ section.id }} .newsletter__input {
+    flex: 1;
+    background: {{ section.settings.text_color | color_modify: 'alpha', 0.1 }};
+    border: 1px solid {{ section.settings.text_color | color_modify: 'alpha', 0.2 }};
+    color: {{ section.settings.text_color }};
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} .newsletter__input {
+      padding: 1rem 1.5rem;
+    }
+  }
+
+  .section-{{ section.id }} .newsletter__input::placeholder {
+    color: {{ section.settings.text_color | color_modify: 'alpha', 0.5 }};
+  }
+
+  .section-{{ section.id }} .newsletter__input:focus {
+    outline: none;
+    background: {{ section.settings.text_color | color_modify: 'alpha', 0.2 }};
+  }
+
+  .section-{{ section.id }} .newsletter__button {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} .newsletter__button {
+      padding: 1rem 2.5rem;
+    }
+  }
+
+  .section-{{ section.id }} .newsletter__button:hover {
+    opacity: 0.9;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "newsletter-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "JOIN THE MOVEMENT"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Unlock 10% off your first order and be the first to know about drops."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "YOUR EMAIL"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding (desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding (desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

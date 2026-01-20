@@ -1,0 +1,362 @@
+{%- liquid
+  assign products_per_page = section.settings.products_per_page
+-%}
+
+<section class="collection-page section-{{ section.id }}">
+  {%- comment -%} Hero Banner {%- endcomment -%}
+  {%- if section.settings.show_hero -%}
+    <div class="collection-page__hero">
+      {%- if collection.image -%}
+        <img
+          src="{{ collection.image | image_url: width: 1920 }}"
+          alt="{{ collection.title | escape }}"
+          class="collection-page__hero-image"
+        >
+      {%- else -%}
+        <div class="collection-page__hero-placeholder"></div>
+      {%- endif -%}
+      <div class="collection-page__hero-overlay"></div>
+      <div class="collection-page__hero-content">
+        <h1 class="collection-page__title">{{ collection.title }}</h1>
+        {%- if collection.description != blank and section.settings.show_description -%}
+          <p class="collection-page__description">{{ collection.description | strip_html | truncate: 160 }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="container">
+      <h1 class="collection-page__title collection-page__title--inline">{{ collection.title }}</h1>
+    </div>
+  {%- endif -%}
+
+  <div class="container">
+    {%- comment -%} Filter Bar {%- endcomment -%}
+    <div class="collection-page__filter-bar">
+      <div class="collection-page__filter-tags">
+        <a
+          href="{{ collection.url }}"
+          class="collection-page__filter-tag{% unless current_tags %} collection-page__filter-tag--active{% endunless %}"
+        >
+          {{ 'collections.all' | t }}
+        </a>
+        {%- for tag in collection.all_tags -%}
+          {%- if tag != 'new' -%}
+            <a
+              href="{{ collection.url }}/{{ tag | handleize }}"
+              class="collection-page__filter-tag{% if current_tags contains tag %} collection-page__filter-tag--active{% endif %}"
+            >
+              {{ tag }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="collection-page__count">
+        {{ 'collections.items_count' | t: count: collection.products_count }}
+      </div>
+    </div>
+
+    {%- comment -%} Product Grid {%- endcomment -%}
+    {%- paginate collection.products by products_per_page -%}
+      <div class="collection-page__grid">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- else -%}
+          <p class="collection-page__empty">No products found</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="collection-page__pagination" aria-label="Pagination">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="collection-page__pagination-btn">
+              {% render 'icon', icon: 'chevron-left', size: 16 %}
+              Previous
+            </a>
+          {%- endif -%}
+
+          <div class="collection-page__pagination-pages">
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}" class="collection-page__pagination-page">{{ part.title }}</a>
+              {%- else -%}
+                <span class="collection-page__pagination-page collection-page__pagination-page--current">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="collection-page__pagination-btn">
+              Next
+              {% render 'icon', icon: 'chevron-right', size: 16 %}
+            </a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding-bottom: 6rem;
+    }
+  }
+
+  /* Hero */
+  .collection-page__hero {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .collection-page__hero {
+      height: 50vh;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .collection-page__hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .collection-page__hero-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  }
+
+  .collection-page__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .collection-page__hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: #fff;
+    padding: 0 1rem;
+  }
+
+  .collection-page__title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .collection-page__title {
+      font-size: 4rem;
+    }
+  }
+
+  .collection-page__title--inline {
+    color: #000;
+    padding: 2rem 0;
+  }
+
+  .collection-page__description {
+    max-width: 600px;
+    margin: 1rem auto 0;
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  /* Filter Bar */
+  .collection-page__filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  @media (min-width: 768px) {
+    .collection-page__filter-bar {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .collection-page__filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .collection-page__filter-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+    background: #f9fafb;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .collection-page__filter-tag:hover,
+  .collection-page__filter-tag--active {
+    background: #000;
+    color: #fff;
+  }
+
+  .collection-page__count {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #9ca3af;
+  }
+
+  /* Grid */
+  .collection-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .collection-page__grid {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .collection-page__grid {
+      grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    }
+  }
+
+  .collection-page__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #9ca3af;
+  }
+
+  /* Pagination */
+  .collection-page__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .collection-page__pagination-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #000;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .collection-page__pagination-btn:hover {
+    opacity: 0.6;
+  }
+
+  .collection-page__pagination-pages {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .collection-page__pagination-page {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s;
+  }
+
+  .collection-page__pagination-page:hover {
+    border-color: #000;
+  }
+
+  .collection-page__pagination-page--current {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Collection page",
+  "tag": "section",
+  "class": "collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show hero banner",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "templates": ["collection"]
+}
+{% endschema %}

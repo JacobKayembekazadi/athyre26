@@ -1,0 +1,89 @@
+<section class="error-404 section-{{ section.id }}">
+  <div class="container">
+    <div class="error-404__content">
+      <h1 class="error-404__heading">404</h1>
+      <p class="error-404__text">{{ 'general.404.title' | t }}</p>
+      <p class="error-404__subtext">{{ 'general.404.subtext' | t }}</p>
+      <a href="{{ routes.root_url }}" class="error-404__button">
+        {{ 'general.404.button' | t }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 6rem 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: 10rem 0;
+    }
+  }
+
+  .error-404__content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .error-404__heading {
+    font-size: 8rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    margin: 0 0 1rem;
+    color: #f3f4f6;
+  }
+
+  @media (min-width: 768px) {
+    .error-404__heading {
+      font-size: 12rem;
+    }
+  }
+
+  .error-404__text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .error-404__text {
+      font-size: 2rem;
+    }
+  }
+
+  .error-404__subtext {
+    color: #6b7280;
+    margin: 0 0 2rem;
+  }
+
+  .error-404__button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .error-404__button:hover {
+    background: #1f2937;
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "404 page",
+  "tag": "section",
+  "class": "error-section",
+  "settings": [],
+  "templates": ["404"]
+}
+{% endschema %}

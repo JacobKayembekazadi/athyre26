@@ -1,0 +1,99 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "continue_shopping": "Continue shopping",
+    "search": "Search",
+    "close": "Close",
+    "menu": "Menu",
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you're looking for doesn't exist or has been moved.",
+      "button": "Back to home"
+    }
+  },
+  "header": {
+    "cart": "Cart",
+    "account": "Account",
+    "search": "Search",
+    "menu": "Menu"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "added_to_cart": "Added to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "quick_add": "Quick add",
+    "select_size": "Select size",
+    "size_guide": "Size guide",
+    "quantity": "Quantity",
+    "new": "New",
+    "reviews": "reviews",
+    "view_product": "View product"
+  },
+  "cart": {
+    "title": "Your Bag",
+    "empty": "Your shopping bag is empty",
+    "start_shopping": "Start Shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "shipping_note": "Shipping and taxes calculated at checkout",
+    "free_shipping_note": "Free shipping on orders over {{ threshold }}",
+    "remove": "Remove",
+    "item_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    }
+  },
+  "collections": {
+    "title": "Collections",
+    "all": "All",
+    "filter": "Filter",
+    "sort": "Sort",
+    "items_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    }
+  },
+  "blogs": {
+    "title": "Journal",
+    "read_more": "Read more",
+    "read_time": "{{ minutes }} min read",
+    "all": "All",
+    "view_all": "View all articles"
+  },
+  "gift_cards": {
+    "title": "Gift Cards",
+    "recipient_email": "Recipient email",
+    "recipient_name": "Recipient name",
+    "message": "Message",
+    "add_to_cart": "Add to cart",
+    "issued": {
+      "title": "Gift Card",
+      "expired": "Expired",
+      "remaining_html": "Remaining balance: {{ balance }}",
+      "copy_code": "Copy code",
+      "copied": "Copied!",
+      "print": "Print gift card",
+      "shop_link": "Continue shopping",
+      "expiration_date": "Expires on {{ expires_on }}"
+    }
+  },
+  "newsletter": {
+    "title": "Join the Movement",
+    "subtitle": "Unlock 10% off your first order and be the first to know about drops",
+    "email_placeholder": "Your email",
+    "subscribe": "Subscribe",
+    "success": "Thanks for subscribing!"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "accessibility": {
+    "close_menu": "Close menu",
+    "open_menu": "Open menu",
+    "loading": "Loading",
+    "skip_to_product_info": "Skip to product information"
+  }
+}

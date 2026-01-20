@@ -1,0 +1,268 @@
+<article class="article-page section-{{ section.id }}">
+  <div class="container">
+    {%- comment -%} Header {%- endcomment -%}
+    <header class="article-page__header">
+      <a href="{{ blog.url }}" class="article-page__back">
+        {% render 'icon', icon: 'chevron-left', size: 16 %}
+        Back to {{ blog.title }}
+      </a>
+
+      <span class="article-page__category">{{ article.tags.first | default: 'Journal' }}</span>
+      <h1 class="article-page__title">{{ article.title }}</h1>
+
+      <div class="article-page__meta">
+        <span>{{ article.published_at | date: '%B %d, %Y' }}</span>
+        {%- if article.author -%}
+          <span>&middot;</span>
+          <span>By {{ article.author }}</span>
+        {%- endif -%}
+      </div>
+    </header>
+
+    {%- comment -%} Featured Image {%- endcomment -%}
+    {%- if article.image -%}
+      <div class="article-page__image">
+        <img
+          src="{{ article.image | image_url: width: 1400 }}"
+          alt="{{ article.title | escape }}"
+        >
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Content {%- endcomment -%}
+    <div class="article-page__content rte">
+      {{ article.content }}
+    </div>
+
+    {%- comment -%} Tags {%- endcomment -%}
+    {%- if article.tags.size > 0 -%}
+      <div class="article-page__tags">
+        <span>Tags:</span>
+        {%- for tag in article.tags -%}
+          <a href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag }}</a>
+          {%- unless forloop.last -%}, {% endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Related Articles {%- endcomment -%}
+    {%- if section.settings.show_related -%}
+      <div class="article-page__related">
+        <h2 class="article-page__related-title">More from the Journal</h2>
+        <div class="article-page__related-grid">
+          {%- for related_article in blog.articles limit: 3 -%}
+            {%- if related_article.id != article.id -%}
+              {% render 'article-card', article: related_article %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</article>
+
+{% style %}
+  .section-{{ section.id }} {
+    padding: 2rem 0 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} {
+      padding: 3rem 0 6rem;
+    }
+  }
+
+  .article-page__header {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .article-page__header {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .article-page__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+
+  .article-page__back:hover {
+    color: #000;
+  }
+
+  .article-page__category {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #6b7280;
+    margin-bottom: 1rem;
+  }
+
+  .article-page__title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0 0 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .article-page__title {
+      font-size: 3rem;
+    }
+  }
+
+  .article-page__meta {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+
+  .article-page__image {
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .article-page__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-page__content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Rich text styles */
+  .rte {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .rte h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 2rem 0 1rem;
+    color: #000;
+  }
+
+  .rte h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.75rem;
+    color: #000;
+  }
+
+  .rte p {
+    margin: 0 0 1.5rem;
+  }
+
+  .rte a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .rte img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+
+  .rte ul,
+  .rte ol {
+    margin: 0 0 1.5rem 1.5rem;
+  }
+
+  .rte li {
+    margin-bottom: 0.5rem;
+  }
+
+  .rte blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    background: #f9fafb;
+    border-left: 4px solid #000;
+    font-style: italic;
+  }
+
+  .article-page__tags {
+    max-width: 700px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid #f3f4f6;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .article-page__tags a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .article-page__tags a:hover {
+    text-decoration: underline;
+  }
+
+  /* Related */
+  .article-page__related {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .article-page__related-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin: 0 0 2rem;
+  }
+
+  .article-page__related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .article-page__related-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Article page",
+  "tag": "article",
+  "class": "article-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related articles",
+      "default": true
+    }
+  ],
+  "templates": ["article"]
+}
+{% endschema %}
